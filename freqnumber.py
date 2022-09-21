@@ -68,7 +68,7 @@ def main():
     ##PROCESS DATA##
         # Discard invalid strings and sorts all numbers
     filtered_and_sorted_input = filter_and_sort_input(input_data_list)
-
+    
         # Get only integers
     integers = get_numbers_of_specific_type(filtered_and_sorted_input, INTEGER_NUM)
         # Count each integer occurrances
@@ -290,9 +290,9 @@ def get_most_repeated(list, k, step=0, most_repeated=[]):
         #Call function again with the next index and the new most repeated elements
         return get_most_repeated(list, k, step+1, new_most_repeated)
 
-    #If end of the list or the current and previous elements have different frequency return most repeated elements
+    #If end of the list or the current and previous elements have different frequency return minimum elements
     else:
-        return most_repeated
+        return minimum_elements
 
 #Outputs the results to a file  
 def output_results(integers, reals, output_file_name):
