@@ -63,29 +63,38 @@ def main():
         input_data = input_file.read()
         # Separate input file by commas, spaces, new lines
     input_data_list = re.split(",| |\n", input_data)
+    # print("\nInput: " , input_data_list)
     ##/INPUT##
 
     ##PROCESS DATA##
         # Discard invalid strings and sorts all numbers
     filtered_and_sorted_input = filter_and_sort_input(input_data_list)
-    
+    # print("\nFiltered and sorted: " , filtered_and_sorted_input)
         # Get only integers
     integers = get_numbers_of_specific_type(filtered_and_sorted_input, INTEGER_NUM)
+    # print("\nOnly integers: " , integers)
         # Count each integer occurrances
     integers_count = count_instances_of_all_elements(integers)
+    # print("\nIntegers count: " , integers_count)
         # Sort integers by amount of occurrances
     sorted_integers_count = sort_by_occurrances(integers_count)
+    # print("\nSorted integers count: " , sorted_integers_count)
         # Get k most repeated integers
     k_most_repeated_integers = get_most_repeated(sorted_integers_count, k)
+    # print("\nK most repeated integers: " , k_most_repeated_integers)
 
         # Get only real numbers
     reals = get_numbers_of_specific_type(filtered_and_sorted_input, REAL_NUM)
+    # print("\nOnly reals: " , reals)
         # Count each real occurrances
     reals_count = count_instances_of_all_elements(reals)
+    # print("\nReals count: " , reals_count)
         # Sort reals by amount of occurrances
     sorted_reals_count = sort_by_occurrances(reals_count)
+    # print("\nSorted reals count: " , sorted_reals_count)
         # Get k most repeated reals
     k_most_repeated_reals = get_most_repeated(sorted_reals_count, k)
+    # print("\nK most repeated reals: " , k_most_repeated_reals)
     ##/PROCESS DATA##
 
     ##OUTPUT##
@@ -122,17 +131,17 @@ def filter_and_sort_input(input_list):
     right = filter_and_sort_input(input_list[middle:])
 
     # Call merge to join the two arrays into a new one
-    return merge_recursively(left, right, compare_less_or_equal, compare_greater)
+    return merge_recursively(left, right)
      
 # Merge arrays: loop through both arrays recursively and compare elements according to the comaprison arguments so that the function can adapt to the list it is receiving
-def merge_recursively(left, right, compare_and_equal, compare, left_index=0, right_index=0, sorted=None):
+def merge_recursively(left, right, left_index=0, right_index=0, sorted=None):
     # Base case: one of the arrays is empty
-    if (lambda x: x == 0)(len(left)):
+    if compare_x_equals_0(len(left)):
         return right
-    elif (lambda x: x == 0)(len(right)):
+    elif compare_x_equals_0(len(right)):
         return left
     # Base case: both arrays are empty
-    elif (lambda x, y: x == 0 and y == 0)(len(left), len(right)):
+    elif compare_x_and_y_equal_0(len(left), len(right)):
         return []
     
     # Base Cases
@@ -145,14 +154,14 @@ def merge_recursively(left, right, compare_and_equal, compare, left_index=0, rig
         return sorted + left[left_index:]
     
     # Sorting
-    if compare_and_equal(left[left_index], right[right_index]):
+    if compare_less_or_equal(left[left_index], right[right_index]):
         if sorted != None:
             result = sorted.copy() + [left[left_index]]
         else:
             result = [left[left_index]]
         new_left_index = left_index + 1
         new_right_index = right_index
-    elif compare(left[left_index], right[right_index]):
+    elif compare_greater(left[left_index], right[right_index]):
         if sorted != None:
             result = sorted.copy() + [right[right_index]]
         else:
@@ -160,7 +169,7 @@ def merge_recursively(left, right, compare_and_equal, compare, left_index=0, rig
         new_left_index = left_index
         new_right_index = right_index + 1
     
-    return merge_recursively(left, right, compare_and_equal, compare, new_left_index, new_right_index, result)
+    return merge_recursively(left, right, new_left_index, new_right_index, result)
 
 # Returns 0 for invalid strings, 1 for integers, 2 for floats
     # Checks for a valid start of the string (a digit or a minus sign) then calls check_rest_of_string to validate the rest
@@ -261,7 +270,65 @@ def sort_by_occurrances(list):
     right = sort_by_occurrances(list[middle:])
 
     # Call merge to join the two arrays into a new one
-    return merge_recursively(left, right, compare_occurrences_greater_or_equal, compare_occurrences_less)
+    return merge_occurrences_recursively(left, right)
+
+# Merge arrays: loop through both arrays recursively and compare elements according to their repetitions in case of tie compare the integer and retrieve the smallest first
+def merge_occurrences_recursively(left, right, left_index=0, right_index=0, sorted=None):
+    # Base case: one of the arrays is empty
+    if (lambda x: x == 0)(len(left)):
+        return right
+    elif (lambda x: x == 0)(len(right)):
+        return left
+    # Base case: both arrays are empty
+    elif (lambda x, y: x == 0 and y == 0)(len(left), len(right)):
+        return []
+    
+    # Base Cases
+        # Reached end of left array
+    if compare_x_equals_y(left_index, len(left)):
+        return sorted + right[right_index:]
+        
+        # Reached end of right array
+    elif compare_x_equals_y(right_index, len(right)):
+        return sorted + left[left_index:]
+    
+    # Sorting
+    #if left occurrances is greater than right occurrances
+    if (lambda x,y: x[1] > y[1])(left[left_index], right[right_index]):
+        if sorted != None:
+            result = sorted.copy() + [left[left_index]]
+        else:
+            result = [left[left_index]]
+        new_left_index = left_index + 1
+        new_right_index = right_index
+        
+    #if left occurrances is less than right occurrances
+    elif (lambda x,y: x[1] < y[1])(left[left_index], right[right_index]):
+        if sorted != None:
+            result = sorted.copy() + [right[right_index]]
+        else:
+            result = [right[right_index]]
+        new_left_index = left_index
+        new_right_index = right_index + 1
+    
+    #if left and right occurrances are the same compare integers
+    else:
+        if (lambda x,y: x[0] > y[0])(left[left_index], right[right_index]):
+            if sorted != None:
+                result = sorted.copy() + [right[right_index]]
+            else:
+                result = [right[right_index]]
+            new_left_index = left_index
+            new_right_index = right_index + 1
+        else:
+            if sorted != None:
+                result = sorted.copy() + [left[left_index]]
+            else:
+                result = [left[left_index]]
+            new_left_index = left_index + 1
+            new_right_index = right_index
+    
+    return merge_occurrences_recursively(left, right, new_left_index, new_right_index, result)
 
 #Gets k most repeated elements from a two dimensional list where the second element is the number of occurrences
 def get_most_repeated(list, k, step=0, most_repeated=[]):
