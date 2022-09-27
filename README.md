@@ -72,26 +72,4 @@ I solved this issue by sorting by the smallest integer first when the occurrence
 |-1.1 2   |  -1.1 2   |
 |0.3 1    |  0.2 1    |
 |0.2 1    |  0.3 1    |
-
-__Test #5__, tests outputs more elements than asked for even though the extra element does not tie with the first 3 most frequent elements?
-
-
-
-|My Output|Test Output|
-|---------|-----------|
-|integer: |  integer: |
-|1234 5   |  1234 5   |
-|1234567 4|  3 4      |
-|3 4      |  1234567 4|
-|real:    |  293 3    |
-|0.5 4    |  real:    |
-|2.3 3    |  0.5 4    |
-|96.6896 2|  2.3 3    |
-|     -   |  96.6896 2|
-
-
-
-
-
-
-
+    
