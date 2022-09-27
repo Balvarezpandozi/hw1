@@ -9,34 +9,37 @@ COSC 4315 - Programming Languages and Paradigms - Homework 1
 - The only sort algorithm used in this project was merge sort and its time complexity is O(n log n)
 - No loops were used in any part of the code except for I/O operations
 - Ties are handle as follows:
-    > The program takes K most frequent elements and if there is a tie for the last k element. It will output all elements that have the same frequency. As an illustration of a tie:
-    For illustration pusposes the integers from the file will be represented with quotes("19") and only integers will be shown. However, functionality for reals is the same:
-    - We have the following frequencies:
-    "19"    15
-    "5"     10
-    "8"     10
-    "29"    15
-    "0"     7
+    > The program takes K most frequent elements and if there is a tie for the last k element. It will output all elements that have the same frequency. As an illustration of a tie:<br/>
 
-    > If the frequencies are tied the lowest integer will appear first
-            - Example with k = 2:
-            Output:
-            "19"    15
-            "29"    15
+    For illustration pusposes the integers from the file will be represented with quotes("19") and only integers will be shown. However, functionality for reals is the same:<br/>
 
-            - Example with k = 3:
-            "19"    15
-            "29"    15
-            "5"     10
-            "8"     10
+    - We have the following frequencies:<br/>
+    "19"    15<br/>
+    "5"     10<br/>
+    "8"     10<br/>
+    "29"    15<br/>
+    "0"     7<br/>
 
-    > If k is greater than the amount of elements it will output them all:
-            - Example with k = 8:
-            "19"    15
-            "29"    15
-            "5"     10
-            "8"     10
-            "0"     7
+    > If the frequencies are tied the lowest integer will appear first<br/>
+    - Example with k = 2:<br/>
+    Output:<br/>
+    "19"    15<br/>
+    "29"    15<br/>
+
+    > If there is a tie with the lowest frequencies, all of the tied elements are shown<br/>
+    - Example with k = 3:<br/>
+    "19"    15<br/>
+    "29"    15<br/>
+    "5"     10<br/>
+    "8"     10<br/>
+
+    > If k is greater than the amount of elements it will output them all:<br/>
+    - Example with k = 8:<br/>
+    "19"    15<br/>
+    "29"    15<br/>
+    "5"     10<br/>
+    "8"     10<br/>
+    "0"     7<br/>
 
 ## Concern about test cases:
 __Test #3__, does output order matter not for frequencies but for the actual number, if it does what is the criteria decreasing or increasing? 
