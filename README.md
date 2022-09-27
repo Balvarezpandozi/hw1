@@ -10,25 +10,39 @@ COSC 4315 - Programming Languages and Paradigms - Homework 1
 - No loops were used in any part of the code except for I/O operations
 - Ties are handle as follows:
     > The program takes K most frequent elements and if there is a tie for the last k element. It will output all elements that have the same frequency. As an illustration of a tie:
-            For illustration pusposes instead of numbers words will be used:
-            - We have the following frequencies:
-            "int"       15
-            "double"    10
-            "while"     10
-            "float"     15
-            "for"       7
+    For illustration pusposes the integers from the file will be represented with quotes("19") and only integers will be shown. However, functionality for reals is the same:
+    - We have the following frequencies:
+    "19"    15
+    "5"     10
+    "8"     10
+    "29"    15
+    "0"     7
+
+    > If the frequencies are tied the lowest integer will appear first
             - Example with k = 2:
             Output:
-            "int"       15
-            "float"     15
+            "19"    15
+            "29"    15
+
             - Example with k = 3:
-            "int"       15
-            "float"     15
-            "double"    10
-            "while"     10
+            "19"    15
+            "29"    15
+            "5"     10
+            "8"     10
+
+    > If k is greater than the amount of elements it will output them all:
+            - Example with k = 8:
+            "19"    15
+            "29"    15
+            "5"     10
+            "8"     10
+            "0"     7
 
 ## Concern about test cases:
-__Test #3__, does output order matter not for frequyencies but for the actual number, if it does what is the criteria decreasing, increasing or what?
+__Test #3__, does output order matter not for frequencies but for the actual number, if it does what is the criteria decreasing or increasing? 
+
+I solved this issue by sorting by the smallest integer first when the occurrences were tied.
+
 |My Output|Test Output|
 |---------|-----------|
 |integer: |  integer: |
@@ -41,7 +55,10 @@ __Test #3__, does output order matter not for frequyencies but for the actual nu
 |-3.3 3   |  -3.3 3   |
 |-2.2 2   |  -2.2 2   |
 
-__Test #4__, does output order matter not for frequyencies but for the actual number, if it does what is the criteria decreasing, increasing or what?
+__Test #4__, does output order matter not for frequencies but for the actual number, if it does what is the criteria decreasing or increasing?
+
+I solved this issue by sorting by the smallest integer first when the occurrences were tied.
+
 |My Output|Test Output|
 |---------|-----------|
 |integer: |  integer: |
@@ -53,7 +70,10 @@ __Test #4__, does output order matter not for frequyencies but for the actual nu
 |0.3 1    |  0.2 1    |
 |0.2 1    |  0.3 1    |
 
-__Test #5__, tests outputs more elements than asked for even though the extra element does not tie with the first 3 mos frequent elements?
+__Test #5__, tests outputs more elements than asked for even though the extra element does not tie with the first 3 most frequent elements?
+
+
+
 |My Output|Test Output|
 |---------|-----------|
 |integer: |  integer: |
